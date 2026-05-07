@@ -15,6 +15,16 @@ module.exports = async function (fastify, opts) {
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
   // through your application
+  fastify.register(require('@fastify/swagger'), {
+    openapi: {
+      info: { title: 'My API', version: '1.0.0' }
+    }
+  });
+
+  fastify.register(require('@fastify/swagger-ui'), {
+    routePrefix: '/docs', // URL for the docs
+  });
+
   fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'plugins'),
     options: Object.assign({}, opts)
